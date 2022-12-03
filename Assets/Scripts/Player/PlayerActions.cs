@@ -25,6 +25,11 @@ public class PlayerActions
         }
     }
 
+    internal void PickUpWeapon(WEAPON weapon)
+    {
+        player.Stats.Weapons[weapon] = true;
+    }
+
     public void Jump()
     {
         if (player.Utilities.isGrounded())
@@ -36,13 +41,19 @@ public class PlayerActions
 
     public void Attack()
     {
-        player.Components.Animator.TryPlayAnimation("Attacking");
+        if (player.Stats.Weapon != 0)
+        {
+            player.Components.Animator.TryPlayAnimation("Attacking");
+        }
     }
 
     public void TrySwapWeapon(WEAPON weapon)
     {
-        player.Stats.Weapon = weapon;
-        SwapWeapon();
+        if (player.Stats.Weapons[weapon] == true)
+        {
+            player.Stats.Weapon = weapon;
+            SwapWeapon();
+        }
     }
 
     public void SwapWeapon()
@@ -55,6 +66,43 @@ public class PlayerActions
         if (player.Stats.Weapon > 0)
         {
             player.References.WeaponObjects[(int)player.Stats.Weapon].SetActive(true);
+            if((int)(player.Stats.Weapon) == 1 || (int)(player.Stats.Weapon) == 4)
+            {
+                player.Components.Animator.SetWeapon(0);
+            }
+            else
+            {
+                player.Components.Animator.SetWeapon(1);
+            }
+        }
+    }
+
+    public void Shoot(string animation)
+    {
+        if (animation == "Shoot")
+        {
+            GameObject go = GameObject.Instantiate(player.References.ProjectilePrefab, player.References.GunBarrel.position, Quaternion.identity);
+
+            Vector3 direction = new Vector3(player.transform.localScale.x, 0);
+            go.GetComponent<Projectile>().Setup(direction);
+        }
+    }
+
+    public void TakeHit()
+    {
+        if(player.Stats.Lives > 0)
+        {
+            UIManager.Instance.RemoveLife();
+            player.Stats.Lives--;
+            player.Components.Animator.TryPlayAnimation("Hurt");
+        }
+    }
+
+    public void Collide(Collider2D collison)
+    {
+        if(collison.tag == "Collectible")
+        {
+            collison.GetComponent<ICollectibles>().Collect();
         }
     }
 }

@@ -34,11 +34,23 @@ public class Player : MonoBehaviour {
 
         AnyStateAnimation[] animations = new AnyStateAnimation[]
         {
-            new AnyStateAnimation("Idle", "Attacking"),
-            new AnyStateAnimation("Running", "Jumping", "Attacking"),
+            new AnyStateAnimation("Idle", "Attacking", "Hurt"),
+            new AnyStateAnimation("Running", "Jumping", "Attacking", "Hurt"),
             new AnyStateAnimation("Jumping"),
             new AnyStateAnimation("Attacking"),
+            new AnyStateAnimation("Hurt"),
         };
+
+        Components.Animator.AnimationTriggerEvent += Actions.Shoot;
+
+        stats.Weapons.Add(WEAPON.None, true);
+        stats.Weapons.Add(WEAPON.Sword, false);
+        stats.Weapons.Add(WEAPON.WaterGun, false);
+        stats.Weapons.Add(WEAPON.Pistol, false);
+        stats.Weapons.Add(WEAPON.Hammer, false);
+        stats.Weapons.Add(WEAPON.NerfGun, false);
+
+        UIManager.Instance.AddLife(stats.Lives);
 
         components.Animator.AddAnimationts(animations);
     }
@@ -52,5 +64,10 @@ public class Player : MonoBehaviour {
     private void FixedUpdate()
     {
         actions.Move(transform);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        actions.Collide(collision);
     }
 }

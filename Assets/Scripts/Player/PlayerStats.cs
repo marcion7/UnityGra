@@ -17,5 +17,11 @@ public class PlayerStats
     [SerializeField]
     private float runSpeed;
 
+    [SerializeField]
+    private int lives;
+
     private WEAPON weapon;
+
+    public Dictionary<WEAPON, bool> Weapons { get; set; } = new Dictionary<WEAPON, bool>();
+    public int Lives { get => lives; set => lives = value; }
 }
