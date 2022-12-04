@@ -32,7 +32,7 @@ public class PlayerActions
 
     public void Jump()
     {
-        if (player.Utilities.isGrounded())
+        if (player.Utilities.IsGrounded())
         {
             player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.JumpForce), ForceMode2D.Impulse);
             player.Components.Animator.TryPlayAnimation("Jumping");
@@ -43,7 +43,19 @@ public class PlayerActions
     {
         if (player.Stats.Weapon != 0)
         {
-            player.Components.Animator.TryPlayAnimation("Attacking");
+            if(player.Utilities.IsGrounded() == false)
+            {
+                player.Components.Animator.TryPlayAnimation("Air_Attacking");
+            }
+            else if(player.Components.Rigidbody.velocity == Vector2.zero)
+            {
+                player.Components.Animator.TryPlayAnimation("Attacking");  
+            }
+            else
+            {
+                player.Components.Animator.TryPlayAnimation("Run_Attacking");
+            }
+                
         }
     }
 
@@ -81,8 +93,17 @@ public class PlayerActions
     {
         if (animation == "Shoot")
         {
-            GameObject go = GameObject.Instantiate(player.References.ProjectilePrefab, player.References.GunBarrel.position, Quaternion.identity);
+            GameObject projectilePrefab = player.References.BulletPrefab;
+            if((int)player.Stats.Weapon == 5)
+            {
+                projectilePrefab = player.References.DartPrefab;
+            }
+            else if ((int)player.Stats.Weapon == 2)
+            {
+                projectilePrefab = player.References.WaterPrefab;
+            }
 
+            GameObject go = Object.Instantiate(projectilePrefab, player.References.GunBarrel.position, Quaternion.identity);
             Vector3 direction = new Vector3(player.transform.localScale.x, 0);
             go.GetComponent<Projectile>().Setup(direction);
         }
@@ -90,12 +111,44 @@ public class PlayerActions
 
     public void TakeHit()
     {
-        if(player.Stats.Lives > 0)
+        if (!player.Stats.IsImmortal)
         {
-            UIManager.Instance.RemoveLife();
-            player.Stats.Lives--;
-            player.Components.Animator.TryPlayAnimation("Hurt");
+            if (player.Stats.Lives > 0)
+            {
+                player.Components.Animator.TryPlayAnimation("Hurt");
+                UIManager.Instance.RemoveLife();
+                player.Stats.Lives--;
+            }
+            
+            if (player.Stats.Alive)
+            {
+                player.StartCoroutine(Immortality());
+            }
+            
+            if (!player.Stats.Alive)
+            {
+                player.Components.Animator.TryPlayAnimation("Dying");
+            }
         }
+    }
+
+    private IEnumerator Blink()
+    {
+        while (player.Stats.IsImmortal)
+        {
+            player.Components.ChildObjectToBlink.SetActive(false);
+            yield return new WaitForSeconds(.2f);
+            player.Components.ChildObjectToBlink.SetActive(true);
+            yield return new WaitForSeconds(.2f);
+        }
+    }
+
+    private IEnumerator Immortality()
+    {
+        player.Stats.IsImmortal = true;
+        player.StartCoroutine(Blink());
+        yield return new WaitForSeconds(player.Stats.ImmortalityTime);
+        player.Stats.IsImmortal = false;
     }
 
     public void Collide(Collider2D collison)

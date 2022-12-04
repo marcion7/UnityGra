@@ -24,7 +24,7 @@ public class AnyStateAnimator : MonoBehaviour
     {
         Animate();
     }
-    public void AddAnimationts(params AnyStateAnimation[] newAnimatons)
+    public void AddAnimations(params AnyStateAnimation[] newAnimatons)
     {
         for (int i = 0; i < newAnimatons.Length; i++)
         {

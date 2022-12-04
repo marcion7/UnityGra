@@ -20,8 +20,19 @@ public class PlayerStats
     [SerializeField]
     private int lives;
 
+    [SerializeField]
+    private float immortalityTime;
+
     private WEAPON weapon;
+
+    public bool Alive
+    {
+        get { return lives > 0; }
+    }
+
+    public bool IsImmortal { get; set; }
 
     public Dictionary<WEAPON, bool> Weapons { get; set; } = new Dictionary<WEAPON, bool>();
     public int Lives { get => lives; set => lives = value; }
+    public float ImmortalityTime { get => immortalityTime; set => immortalityTime = value; }
 }

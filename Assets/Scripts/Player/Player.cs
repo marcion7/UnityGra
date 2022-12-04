@@ -32,13 +32,18 @@ public class Player : MonoBehaviour {
         
         stats.Speed = stats.RunSpeed;
 
+        stats.IsImmortal = false;
+
         AnyStateAnimation[] animations = new AnyStateAnimation[]
         {
-            new AnyStateAnimation("Idle", "Attacking", "Hurt"),
-            new AnyStateAnimation("Running", "Jumping", "Attacking", "Hurt"),
-            new AnyStateAnimation("Jumping"),
-            new AnyStateAnimation("Attacking"),
-            new AnyStateAnimation("Hurt"),
+            new AnyStateAnimation("Idle", "Attacking", "Hurt", "Dying"),
+            new AnyStateAnimation("Running", "Jumping", "Attacking", "Run_Attacking", "Air_Attacking", "Hurt", "Dying"),
+            new AnyStateAnimation("Jumping", "Hurt", "Dying"),
+            new AnyStateAnimation("Attacking", "Hurt", "Dying"),
+            new AnyStateAnimation("Run_Attacking", "Hurt", "Dying"),
+            new AnyStateAnimation("Air_Attacking", "Hurt", "Dying"),
+            new AnyStateAnimation("Hurt", "Dying"),
+            new AnyStateAnimation("Dying")
         };
 
         Components.Animator.AnimationTriggerEvent += Actions.Shoot;
@@ -52,18 +57,24 @@ public class Player : MonoBehaviour {
 
         UIManager.Instance.AddLife(stats.Lives);
 
-        components.Animator.AddAnimationts(animations);
+        components.Animator.AddAnimations(animations);
     }
 
     private void Update()
     {
-        utilities.HandleInput();
+        if (stats.Alive)
+        {
+            utilities.HandleInput();
+        }
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        actions.Move(transform);
+        if (stats.Alive)
+        {
+            actions.Move(transform);
+        } 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -45,7 +45,7 @@ public class PlayerUtilities
         }
     }
 
-    public bool isGrounded()
+    public bool IsGrounded()
     {
         RaycastHit2D hit = Physics2D.BoxCast(player.Components.Collider.bounds.center, player.Components.Collider.bounds.size, 0, Vector2.down, 0.1f, player.Components.GroundLayer);
 

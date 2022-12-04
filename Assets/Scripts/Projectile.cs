@@ -22,4 +22,9 @@ public class Projectile : MonoBehaviour
     {
         this.direction = direction;
     }
+
+    public void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }
