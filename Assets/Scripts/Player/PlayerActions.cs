@@ -10,6 +10,7 @@ public class PlayerActions
     {
         this.player = player;
     }
+
     public void Move(Transform transform)
     {
         player.Components.Rigidbody.velocity = new Vector2(player.Stats.Direction.x * player.Stats.Speed * Time.deltaTime, player.Components.Rigidbody.velocity.y);
@@ -30,12 +31,35 @@ public class PlayerActions
         player.Stats.Weapons[weapon] = true;
     }
 
+    internal void PickUpDoubleJump()
+    {
+        player.Stats.CanDoubleJump = true;
+        player.Stats.PickedUpDoubleJump = true;
+    }
+
+    internal void PickUpLive()
+    {
+        if (player.Stats.Lives < 10)
+        {
+            player.Stats.Lives++;
+            UIManager.Instance.AddLife(1);
+        }
+    }
+
     public void Jump()
     {
         if (player.Utilities.IsGrounded())
         {
             player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.JumpForce), ForceMode2D.Impulse);
             player.Components.Animator.TryPlayAnimation("Jumping");
+        }
+        else if (player.Stats.CanDoubleJump)
+        {
+            player.Components.Collider.enabled = false;
+            player.Components.Rigidbody.velocity = Vector2.zero;
+            player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.DoubleJumpForce), ForceMode2D.Impulse);
+            player.Stats.CanDoubleJump = false;
+            player.Components.Collider.enabled = true;
         }
     }
 

@@ -10,8 +10,15 @@ public class PlayerStats
 
     [SerializeField]
     private float jumpForce;
+
+    [SerializeField]
+    private float doubleJumpForce;
+
+    public bool PickedUpDoubleJump { get; set; } = false;
+
     public float RunSpeed { get => runSpeed; }
     public float JumpForce { get => jumpForce; }
+    public float DoubleJumpForce { get => doubleJumpForce; }
     public WEAPON Weapon { get => weapon; set => weapon = value; }
 
     [SerializeField]
@@ -22,6 +29,7 @@ public class PlayerStats
 
     [SerializeField]
     private float immortalityTime;
+    public bool CanDoubleJump { get; set; } = false;
 
     private WEAPON weapon;
 
@@ -35,4 +43,5 @@ public class PlayerStats
     public Dictionary<WEAPON, bool> Weapons { get; set; } = new Dictionary<WEAPON, bool>();
     public int Lives { get => lives; set => lives = value; }
     public float ImmortalityTime { get => immortalityTime; set => immortalityTime = value; }
+ 
 }

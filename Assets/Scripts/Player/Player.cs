@@ -65,6 +65,10 @@ public class Player : MonoBehaviour {
         if (stats.Alive)
         {
             utilities.HandleInput();
+            if (utilities.IsGrounded() && Stats.PickedUpDoubleJump)
+            {
+                stats.CanDoubleJump = true;
+            }
         }
     }
 

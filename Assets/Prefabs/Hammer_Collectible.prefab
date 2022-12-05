@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6378845558356397624}
   - component: {fileID: 560043041190549148}
   - component: {fileID: 2938993883046311154}
-  - component: {fileID: 6200079667422418096}
+  - component: {fileID: 723405315383458291}
   m_Layer: 0
   m_Name: Hammer_Collectible
   m_TagString: Collectible
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: 4
---- !u!60 &6200079667422418096
-PolygonCollider2D:
+--- !u!61 &723405315383458291
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -112,7 +112,7 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.019330576, y: 0.10680175}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -122,14 +122,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.685, y: 1.5749999}
-      - {x: -0.685, y: 0.59499997}
-      - {x: -0.48499998, y: 0.59499997}
-      - {x: -0.20416832, y: 0.6149563}
-      - {x: -0.205, y: -1.4449999}
-      - {x: 0.13499999, y: -1.4449999}
-      - {x: 0.15424365, y: 0.60166454}
-      - {x: 0.655, y: 0.59499997}
-      - {x: 0.655, y: 1.5749999}
+  serializedVersion: 2
+  m_Size: {x: 0.9659573, y: 2.762414}
+  m_EdgeRadius: 0
