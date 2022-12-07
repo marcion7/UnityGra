@@ -12,6 +12,22 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
     private int Lives = 2;
 
     [SerializeField]
+    private float speed;
+
+    private float DistanceBeetweenPlayerToStop
+    {
+        get
+        {
+            if (EnemyType == EnemyType.Fire || EnemyType == EnemyType.Armored)
+            {
+                return 7;
+            }
+            else
+                return 1.5f;
+        }
+    }
+
+    [SerializeField]
     private EnemyType EnemyType;
 
     [SerializeField]
@@ -32,6 +48,7 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
     private void Update()
     {
         LookAtTarget();
+        MoveToTarget();
         Attack();
     }
 
@@ -77,7 +94,26 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
         {
             canAttack = false;
             timeSinceAttack = 0;
-            animator.SetBool("Firing", true);
+            if (EnemyType == EnemyType.Fire || EnemyType == EnemyType.Armored)
+            {
+                animator.SetBool("Firing", true);
+            }
+            else
+            {
+                animator.SetBool("Punching", true);
+            }
+        }
+    }
+
+    public void StopAttack()
+    {
+        if (EnemyType == EnemyType.Fire || EnemyType == EnemyType.Armored)
+        {
+            animator.SetBool("Firing", false);
+        }
+        else 
+        { 
+            animator.SetBool("Punching", false);
         }
     }
 
@@ -92,10 +128,24 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
         }
     }
 
-    public void StopAttack()
+    private void MoveToTarget()
     {
-        animator.SetBool("Firing", false);
+        if (target != null)
+        {
+            if (Mathf.Abs(target.transform.position.x - transform.position.x) <= DistanceBeetweenPlayerToStop
+                || Mathf.Abs(target.transform.position.y - transform.position.y) >= 3)
+            {
+                animator.SetBool("Running", false);
+            }
+            else
+            {
+                Vector3 destination = target.transform.position;
+                transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+                animator.SetBool("Running", true);
+            }
+        }
     }
+
     public void Shoot()
     {
         GameObject go = Instantiate(bulletPrefab, gunBarrel.position, Quaternion.identity);
@@ -111,8 +161,14 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
             switch (EnemyType)
             {
                 case EnemyType.Basic:
-                    if (DamageType == "Sword" || DamageType == "Bullet" || DamageType == "Hammer")
+                    if (DamageType == "Sword" || DamageType == "Hammer")
+                    {
                         Hurt();
+                    }
+                    else if(DamageType == "Bullet")
+                    {
+                        Hurt(2);
+                    }
                     break;
                 case EnemyType.Fire:
                     if (DamageType == "WaterDrop")
@@ -124,11 +180,23 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
                     break;
                 case EnemyType.Stone:
                     if (DamageType == "Hammer")
-                        Hurt();
+                    {
+                        Hurt(3);
+                    }
+                    else if (DamageType == "WaterDrop")
+                    {
+                        Hurt(2);
+                    }
                     break;
                 case EnemyType.TargerHead:
                     if (DamageType == "Dart")
+                    {
+                        Hurt(3);
+                    }
+                    else if (DamageType == "Bullet")
+                    {
                         Hurt();
+                    }
                     break;
                 default:
                     break;
@@ -146,10 +214,15 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
         StartCoroutine(DeleteAfterSek());
     }
 
-    public void Hurt()
+    public void Hurt(int damage = 1)
     {
-        Lives--;
-        animator.SetTrigger("Hurt");
+        Lives -= damage;
+        animator.SetBool("Hurt", true);
+    }
+
+    public void StopHurt()
+    {
+        animator.SetBool("Hurt", false);
     }
 
     IEnumerator DeleteAfterSek()

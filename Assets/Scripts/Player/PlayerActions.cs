@@ -29,6 +29,26 @@ public class PlayerActions
     internal void PickUpWeapon(WEAPON weapon)
     {
         player.Stats.Weapons[weapon] = true;
+        switch (weapon)
+        {
+            case WEAPON.Sword:
+                player.References.SwordImage.SetActive(true);
+                break;
+            case WEAPON.WaterGun:
+                player.References.WaterGunImage.SetActive(true);
+                break;
+            case WEAPON.Pistol:
+                player.References.PistolImage.SetActive(true);
+                break;
+            case WEAPON.Hammer:
+                player.References.HammerImage.SetActive(true);
+                break;
+            case WEAPON.NerfGun:
+                player.References.NerfGunImage.SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
 
     internal void PickUpDoubleJump()
@@ -133,7 +153,7 @@ public class PlayerActions
         }
     }
 
-    public void TakeHit()
+    public void TakeHit(int damage = 1)
     {
         if (!player.Stats.IsImmortal)
         {
@@ -141,7 +161,7 @@ public class PlayerActions
             {
                 player.Components.Animator.TryPlayAnimation("Hurt");
                 UIManager.Instance.RemoveLife();
-                player.Stats.Lives--;
+                player.Stats.Lives -= damage;
             }
             
             if (player.Stats.Alive)
