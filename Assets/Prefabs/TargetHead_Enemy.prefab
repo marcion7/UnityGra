@@ -1511,6 +1511,8 @@ MonoBehaviour:
   EnemyType: 4
   bulletPrefab: {fileID: 0}
   gunBarrel: {fileID: 0}
+  dyingSound: {fileID: 8300000, guid: 823667e0bcc7fd44c9cff69b05ca1a03, type: 3}
+  attackSound: {fileID: 8300000, guid: 541c83ff944c7fb4fa02dbae948fc258, type: 3}
   attackCooldown: 0.5
 --- !u!50 &6967138210793891633
 Rigidbody2D:

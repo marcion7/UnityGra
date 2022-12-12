@@ -36,6 +36,12 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
     [SerializeField]
     private Transform gunBarrel;
 
+    [SerializeField]
+    private AudioClip dyingSound;
+
+    [SerializeField]
+    private AudioClip attackSound;
+
     private Transform target;
 
     [SerializeField]
@@ -133,7 +139,7 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
         if (target != null)
         {
             if (Mathf.Abs(target.transform.position.x - transform.position.x) <= DistanceBeetweenPlayerToStop
-                || Mathf.Abs(target.transform.position.y - transform.position.y) >= 3)
+                || Mathf.Abs(target.transform.position.y - transform.position.y) >= 2)
             {
                 animator.SetBool("Running", false);
             }
@@ -145,6 +151,10 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
             }
         }
     }
+    public void PlayAttackSound()
+    {
+        SoundManager.instance.PlaySound(attackSound);
+    }
 
     public void Shoot()
     {
@@ -152,20 +162,21 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
         Vector3 direction = new Vector3(transform.localScale.x, 0);
 
         go.GetComponent<Projectile>().Setup(direction);
+        PlayAttackSound();
     }
 
     public void TakeHit(string DamageType)
     {
-        if (Lives > 1)
+        if (Lives > 0)
         {
             switch (EnemyType)
             {
                 case EnemyType.Basic:
-                    if (DamageType == "Sword" || DamageType == "Hammer")
+                    if (DamageType == "Sword")
                     {
                         Hurt();
                     }
-                    else if(DamageType == "Bullet")
+                    else if(DamageType == "Bullet" || DamageType == "Hammer")
                     {
                         Hurt(2);
                     }
@@ -181,11 +192,11 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
                 case EnemyType.Stone:
                     if (DamageType == "Hammer")
                     {
-                        Hurt(3);
+                        Hurt(2);
                     }
                     else if (DamageType == "WaterDrop")
                     {
-                        Hurt(2);
+                        Hurt();
                     }
                     break;
                 case EnemyType.TargerHead:
@@ -202,7 +213,7 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
                     break;
             }
         }
-        else
+        if(Lives < 1)
         {
             Die();
         }
@@ -211,6 +222,7 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
     public void Die()
     {
         animator.SetTrigger("Dying");
+        SoundManager.instance.PlaySound(dyingSound);
         StartCoroutine(DeleteAfterSek());
     }
 

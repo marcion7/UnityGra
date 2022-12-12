@@ -58,6 +58,7 @@ public class AnyStateAnimator : MonoBehaviour
             animator.SetBool(key, animations[key].Active);
         }
     }
+
     public void OnAnimationDone(string animation)
     {
         animations[animation].Active = false;

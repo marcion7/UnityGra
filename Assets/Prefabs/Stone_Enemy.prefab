@@ -1148,11 +1148,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6312538292185629438}
-  Lives: 6
+  Lives: 4
   speed: 1
   EnemyType: 3
   bulletPrefab: {fileID: 0}
   gunBarrel: {fileID: 0}
+  dyingSound: {fileID: 8300000, guid: 823667e0bcc7fd44c9cff69b05ca1a03, type: 3}
+  attackSound: {fileID: 8300000, guid: 541c83ff944c7fb4fa02dbae948fc258, type: 3}
   attackCooldown: 1
 --- !u!50 &7553375528980975869
 Rigidbody2D:
@@ -1931,7 +1933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1017442309975230749
 Transform:
   m_ObjectHideFlags: 0

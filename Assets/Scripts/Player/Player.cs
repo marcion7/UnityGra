@@ -36,7 +36,7 @@ public class Player : MonoBehaviour {
 
         AnyStateAnimation[] animations = new AnyStateAnimation[]
         {
-            new AnyStateAnimation("Idle", "Attacking", "Hurt", "Dying"),
+            new AnyStateAnimation("Idle", "Attacking", "Hurt"),
             new AnyStateAnimation("Running", "Jumping", "Attacking", "Run_Attacking", "Air_Attacking", "Hurt", "Dying"),
             new AnyStateAnimation("Jumping", "Hurt", "Dying"),
             new AnyStateAnimation("Attacking", "Hurt", "Dying"),
@@ -56,6 +56,8 @@ public class Player : MonoBehaviour {
         stats.Weapons.Add(WEAPON.NerfGun, false);
 
         UIManager.Instance.AddLife(stats.Lives);
+
+        references.RespawnPoint = GetComponent<Transform>().position;
 
         components.Animator.AddAnimations(animations);
     }
@@ -84,5 +86,10 @@ public class Player : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         actions.Collide(collision);
+    }
+
+    public void PlayMeleeWeaponSound()
+    {
+        SoundManager.instance.PlaySound(references.SlashSound);
     }
 }

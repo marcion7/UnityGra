@@ -45,4 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Portal: {fileID: 0}
-  NextLevel: {fileID: 0}
+  spawnPortalSound: {fileID: 8300000, guid: b2bd12acf55b70b4281a164afdc2a2a8, type: 3}
+  enemies: []

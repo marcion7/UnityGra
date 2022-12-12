@@ -10,7 +10,6 @@ public class SpawnPortal : MonoBehaviour
     [SerializeField]
     private List<GameObject> enemies;
 
-    // Update is called once per frame
     void Update()
     {
         StartCoroutine(EnemyKilled());

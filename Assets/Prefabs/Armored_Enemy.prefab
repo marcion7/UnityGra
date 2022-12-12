@@ -622,9 +622,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3161586402712984309}
-  - component: {fileID: 3161586402712984296}
   - component: {fileID: 3161586402712984299}
   - component: {fileID: 3161586402712984298}
+  - component: {fileID: 1938029516031938689}
   m_Layer: 0
   m_Name: DamageArea
   m_TagString: Untagged
@@ -647,32 +647,6 @@ Transform:
   m_Father: {fileID: 4527180087415139411}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &3161586402712984296
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3161586402712984308}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.41112924, y: 1.843531}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.3888707, y: 3.6203282}
-  m_EdgeRadius: 0
 --- !u!114 &3161586402712984299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,6 +680,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &1938029516031938689
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161586402712984308}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.4277174, y: 1.6555349}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5373574, y: 3.244336}
+  m_EdgeRadius: 0
 --- !u!1 &3449477935505115898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,10 +1384,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4527180087415139410}
   Lives: 2
-  speed: 1
+  speed: 1.2
   EnemyType: 2
   bulletPrefab: {fileID: 6333840419834508323, guid: f070eaa62f9468e49b1e829dcdac079b, type: 3}
   gunBarrel: {fileID: 7586703263783518292}
+  dyingSound: {fileID: 8300000, guid: 823667e0bcc7fd44c9cff69b05ca1a03, type: 3}
+  attackSound: {fileID: 8300000, guid: feb47560beedc0d4bb35bb9bc27f7fc2, type: 3}
   attackCooldown: 2
 --- !u!50 &8138688123468917497
 Rigidbody2D:

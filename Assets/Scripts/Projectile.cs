@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     {
         this.direction = direction;
 
-        GetComponent<SpriteRenderer>().flipX = direction.x == 1 ? false : true;
+        GetComponent<SpriteRenderer>().flipX = direction.x == -0.7f ? true : false;
     }
 
     public void OnBecameInvisible()

@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeleportTo: {x: 0, y: 0}
+  PortalSound: {fileID: 0}
+  TeleportationSound: {fileID: 8300000, guid: 0aae980f183eff1428e6da6aa80c7ef5, type: 3}
 --- !u!61 &8545022688120638994
 BoxCollider2D:
   m_ObjectHideFlags: 0

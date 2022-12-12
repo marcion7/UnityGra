@@ -32,29 +32,31 @@ public class PlayerActions
         switch (weapon)
         {
             case WEAPON.Sword:
-                player.References.SwordImage.SetActive(true);
+                player.References.UIWeaponImages[0].SetActive(true);
                 break;
             case WEAPON.WaterGun:
-                player.References.WaterGunImage.SetActive(true);
+                player.References.UIWeaponImages[1].SetActive(true);
                 break;
             case WEAPON.Pistol:
-                player.References.PistolImage.SetActive(true);
+                player.References.UIWeaponImages[2].SetActive(true);
                 break;
             case WEAPON.Hammer:
-                player.References.HammerImage.SetActive(true);
+                player.References.UIWeaponImages[3].SetActive(true);
                 break;
             case WEAPON.NerfGun:
-                player.References.NerfGunImage.SetActive(true);
+                player.References.UIWeaponImages[4].SetActive(true); ;
                 break;
             default:
                 break;
         }
+        SoundManager.instance.PlaySound(player.References.PickupSound);
     }
 
     internal void PickUpDoubleJump()
     {
         player.Stats.CanDoubleJump = true;
         player.Stats.PickedUpDoubleJump = true;
+        SoundManager.instance.PlaySound(player.References.PickupSound);
     }
 
     internal void PickUpLive()
@@ -64,6 +66,7 @@ public class PlayerActions
             player.Stats.Lives++;
             UIManager.Instance.AddLife(1);
         }
+        SoundManager.instance.PlaySound(player.References.PickupSound);
     }
 
     public void Jump()
@@ -72,6 +75,7 @@ public class PlayerActions
         {
             player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.JumpForce), ForceMode2D.Impulse);
             player.Components.Animator.TryPlayAnimation("Jumping");
+            SoundManager.instance.PlaySound(player.References.JumpSound);
         }
         else if (player.Stats.CanDoubleJump)
         {
@@ -80,12 +84,14 @@ public class PlayerActions
             player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.DoubleJumpForce), ForceMode2D.Impulse);
             player.Stats.CanDoubleJump = false;
             player.Components.Collider.enabled = true;
+            player.Components.Animator.TryPlayAnimation("Jumping");
+            SoundManager.instance.PlaySound(player.References.JumpSound);
         }
     }
 
     public void Attack()
     {
-        if (player.Stats.Weapon != 0)
+        if ((int)player.Stats.Weapon != 0)
         {
             if(player.Utilities.IsGrounded() == false)
             {
@@ -141,10 +147,16 @@ public class PlayerActions
             if((int)player.Stats.Weapon == 5)
             {
                 projectilePrefab = player.References.DartPrefab;
+                SoundManager.instance.PlaySound(player.References.NerfGunSound);
             }
             else if ((int)player.Stats.Weapon == 2)
             {
                 projectilePrefab = player.References.WaterPrefab;
+                SoundManager.instance.PlaySound(player.References.WaterGunSound);
+            }
+            else
+            {
+                SoundManager.instance.PlaySound(player.References.PistolSound);
             }
 
             GameObject go = Object.Instantiate(projectilePrefab, player.References.GunBarrel.position, Quaternion.identity);
@@ -160,6 +172,7 @@ public class PlayerActions
             if (player.Stats.Lives > 0)
             {
                 player.Components.Animator.TryPlayAnimation("Hurt");
+                SoundManager.instance.PlaySound(player.References.HurtSound);
                 UIManager.Instance.RemoveLife();
                 player.Stats.Lives -= damage;
             }
@@ -172,6 +185,9 @@ public class PlayerActions
             if (!player.Stats.Alive)
             {
                 player.Components.Animator.TryPlayAnimation("Dying");
+                SoundManager.instance.PlaySound(player.References.DyingSound);
+                player.StartCoroutine(Respawn());
+                player.StartCoroutine(Immortality());
             }
         }
     }
@@ -185,6 +201,15 @@ public class PlayerActions
             player.Components.ChildObjectToBlink.SetActive(true);
             yield return new WaitForSeconds(.2f);
         }
+    }
+
+    private IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(1);
+        player.Components.Animator.TryPlayAnimation("Idle");
+        player.transform.position = player.References.RespawnPoint;
+        player.Stats.Lives = 3;
+        UIManager.Instance.AddLife(3);
     }
 
     private IEnumerator Immortality()
