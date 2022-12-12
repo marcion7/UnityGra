@@ -14,18 +14,8 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
     [SerializeField]
     private float speed;
 
-    private float DistanceBeetweenPlayerToStop
-    {
-        get
-        {
-            if (EnemyType == EnemyType.Fire || EnemyType == EnemyType.Armored)
-            {
-                return 7;
-            }
-            else
-                return 1.5f;
-        }
-    }
+    [SerializeField]
+    private float AttackRange = 1.5f;
 
     [SerializeField]
     private EnemyType EnemyType;
@@ -138,7 +128,7 @@ public class Enemy : MonoBehaviour, ICollisionHandler, IHitable
     {
         if (target != null)
         {
-            if (Mathf.Abs(target.transform.position.x - transform.position.x) <= DistanceBeetweenPlayerToStop
+            if (Mathf.Abs(target.transform.position.x - transform.position.x) <= AttackRange
                 || Mathf.Abs(target.transform.position.y - transform.position.y) >= 2)
             {
                 animator.SetBool("Running", false);

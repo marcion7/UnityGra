@@ -1157,6 +1157,7 @@ MonoBehaviour:
   animator: {fileID: 6312538292185629438}
   Lives: 2
   speed: 1.5
+  AttackRange: 8
   EnemyType: 1
   bulletPrefab: {fileID: 8097416033048945759, guid: 754c6c4104f60b64bb0223460c09d6e3, type: 3}
   gunBarrel: {fileID: 5073236217920690266}

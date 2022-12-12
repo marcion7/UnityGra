@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2302cad1563eb31478f43bb020485277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PortalAppearedText: {fileID: 0}
+  PortalAppearedSound: {fileID: 8300000, guid: b2bd12acf55b70b4281a164afdc2a2a8, type: 3}
   Portal: {fileID: 0}
-  spawnPortalSound: {fileID: 8300000, guid: b2bd12acf55b70b4281a164afdc2a2a8, type: 3}
   enemies: []
