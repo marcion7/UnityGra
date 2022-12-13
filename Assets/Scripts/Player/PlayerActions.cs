@@ -6,6 +6,8 @@ public class PlayerActions
 {
     private Player player;
 
+    private bool IsPlayerCrouching = false;
+
     public PlayerActions(Player player)
     {
         this.player = player;
@@ -13,16 +15,19 @@ public class PlayerActions
 
     public void Move(Transform transform)
     {
-        player.Components.Rigidbody.velocity = new Vector2(player.Stats.Direction.x * player.Stats.Speed * Time.deltaTime, player.Components.Rigidbody.velocity.y);
+        if (!IsPlayerCrouching)
+        {
+            player.Components.Rigidbody.velocity = new Vector2(player.Stats.Direction.x * player.Stats.Speed * Time.deltaTime, player.Components.Rigidbody.velocity.y);
 
-        if(player.Stats.Direction.x != 0)
-        {
-            transform.localScale = new Vector3(player.Stats.Direction.x < 0 ? -0.7f : 0.7f, 0.7f, 1);
-            player.Components.Animator.TryPlayAnimation("Running");
-        }
-        else if(player.Components.Rigidbody.velocity == Vector2.zero)
-        {
-            player.Components.Animator.TryPlayAnimation("Idle");
+            if (player.Stats.Direction.x != 0)
+            {
+                transform.localScale = new Vector3(player.Stats.Direction.x < 0 ? -0.7f : 0.7f, 0.7f, 1);
+                player.Components.Animator.TryPlayAnimation("Running");
+            }
+            else if (player.Components.Rigidbody.velocity == Vector2.zero)
+            {
+                player.Components.Animator.TryPlayAnimation("Idle");
+            }
         }
     }
 
@@ -71,21 +76,24 @@ public class PlayerActions
 
     public void Jump()
     {
-        if (player.Utilities.IsGrounded())
+        if (!IsPlayerCrouching)
         {
-            player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.JumpForce), ForceMode2D.Impulse);
-            player.Components.Animator.TryPlayAnimation("Jumping");
-            SoundManager.instance.PlaySound(player.References.JumpSound);
-        }
-        else if (player.Stats.CanDoubleJump)
-        {
-            player.Components.Collider.enabled = false;
-            player.Components.Rigidbody.velocity = Vector2.zero;
-            player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.DoubleJumpForce), ForceMode2D.Impulse);
-            player.Stats.CanDoubleJump = false;
-            player.Components.Collider.enabled = true;
-            player.Components.Animator.TryPlayAnimation("Jumping");
-            SoundManager.instance.PlaySound(player.References.JumpSound);
+            if (player.Utilities.IsGrounded())
+            {
+                player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.JumpForce), ForceMode2D.Impulse);
+                player.Components.Animator.TryPlayAnimation("Jumping");
+                SoundManager.instance.PlaySound(player.References.JumpSound);
+            }
+            else if (player.Stats.CanDoubleJump)
+            {
+                player.Components.Collider.enabled = false;
+                player.Components.Rigidbody.velocity = Vector2.zero;
+                player.Components.Rigidbody.AddForce(new Vector2(0, player.Stats.DoubleJumpForce), ForceMode2D.Impulse);
+                player.Stats.CanDoubleJump = false;
+                player.Components.Collider.enabled = true;
+                player.Components.Animator.TryPlayAnimation("Jumping");
+                SoundManager.instance.PlaySound(player.References.JumpSound);
+            }
         }
     }
 
@@ -107,6 +115,18 @@ public class PlayerActions
             }
                 
         }
+    }
+    public void Crouch()
+    {
+        IsPlayerCrouching = true;
+        player.Components.Rigidbody.velocity = Vector2.zero;
+        player.Components.Animator.TryPlayAnimation("Crouching");
+    }
+
+    public void StopCrouch()
+    {
+        IsPlayerCrouching = false;
+        player.Components.Animator.OnAnimationDone("Crouching");
     }
 
     public void TrySwapWeapon(WEAPON weapon)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Command
 {
-    public KeyCode Key { get ;private set; }
+    public KeyCode Key { get ; private set; }
 
     public Command(KeyCode key)
     {

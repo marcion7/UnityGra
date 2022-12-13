@@ -21,6 +21,8 @@ public class PlayerUtilities
         commands.Add(new WeaponSwapCommand(player, WEAPON.Pistol, KeyCode.Alpha3));
         commands.Add(new WeaponSwapCommand(player, WEAPON.Hammer, KeyCode.Alpha4));
         commands.Add(new WeaponSwapCommand(player, WEAPON.NerfGun, KeyCode.Alpha5));
+
+        commands.Add(new CrouchCommand(player, KeyCode.DownArrow));
     }
     public void HandleInput()
     {

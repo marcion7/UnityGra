@@ -36,14 +36,15 @@ public class Player : MonoBehaviour {
 
         AnyStateAnimation[] animations = new AnyStateAnimation[]
         {
-            new AnyStateAnimation("Idle", "Attacking", "Hurt"),
-            new AnyStateAnimation("Running", "Jumping", "Attacking", "Run_Attacking", "Air_Attacking", "Hurt", "Dying"),
-            new AnyStateAnimation("Jumping", "Hurt", "Dying"),
+            new AnyStateAnimation("Idle", "Attacking", "Hurt", "Crouching"),
+            new AnyStateAnimation("Running", "Jumping", "Attacking", "Run_Attacking", "Air_Attacking", "Hurt", "Dying", "Crouching"),
+            new AnyStateAnimation("Jumping", "Hurt", "Dying", "Crouching"),
             new AnyStateAnimation("Attacking", "Hurt", "Dying"),
             new AnyStateAnimation("Run_Attacking", "Hurt", "Dying"),
             new AnyStateAnimation("Air_Attacking", "Hurt", "Dying"),
             new AnyStateAnimation("Hurt", "Dying"),
-            new AnyStateAnimation("Dying")
+            new AnyStateAnimation("Dying"),
+            new AnyStateAnimation("Crouching", "Hurt", "Dying")
         };
 
         Components.Animator.AnimationTriggerEvent += Actions.Shoot;
