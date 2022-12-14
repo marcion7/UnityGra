@@ -26,9 +26,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void AddLife(int amout)
+    public void AddLife(int amount)
     {
-        for (int i = 0; i < amout; i++)
+        for (int i = 0; i < amount; i++)
         {
             lives.Push(Instantiate(lifePrefab, lifeParent));
         }

@@ -39,11 +39,6 @@ public class PlayerUtilities
             {
                 command.GetKeyUp();
             }
-
-            if (Input.GetKey(command.Key))
-            {
-                command.GetKey();
-            }
         }
     }
 

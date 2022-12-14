@@ -2947,37 +2947,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 555b6df4d43f5f84394325c08ef60225, type: 3}
---- !u!1 &515948039 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3161586402712984308, guid: 555b6df4d43f5f84394325c08ef60225, type: 3}
-  m_PrefabInstance: {fileID: 515948038}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &515948040
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 515948039}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.4277174, y: 1.6555349}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5373574, y: 3.244336}
-  m_EdgeRadius: 0
 --- !u!4 &515948041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4527180087415139411, guid: 555b6df4d43f5f84394325c08ef60225, type: 3}
@@ -18365,12 +18334,12 @@ Transform:
   - {fileID: 1608737600}
   - {fileID: 2024384436}
   - {fileID: 1173033285}
+  - {fileID: 1421397334}
   - {fileID: 879412804}
   - {fileID: 1292007314}
   - {fileID: 89861191}
   - {fileID: 423929671}
   - {fileID: 149557546}
-  - {fileID: 1421397334}
   - {fileID: 314042579}
   - {fileID: 986721090}
   m_Father: {fileID: 0}
@@ -23224,7 +23193,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 743400149}
-  m_RootOrder: 15
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1421397335
 SpriteRenderer:
@@ -28408,6 +28377,10 @@ PrefabInstance:
     - target: {fileID: 1069664023614898004, guid: db97b62b8bc69894888ed9eb2b0c0f52, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069664023614898004, guid: db97b62b8bc69894888ed9eb2b0c0f52, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1069664023614898004, guid: db97b62b8bc69894888ed9eb2b0c0f52, type: 3}
       propertyPath: m_LocalPosition.x

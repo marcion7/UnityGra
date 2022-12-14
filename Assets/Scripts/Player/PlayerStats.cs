@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerStats
 {
     public Vector2 Direction { get; set; }
-    public float Speed { get; set; }
 
     [SerializeField]
     private float jumpForce;

@@ -20,9 +20,4 @@ public abstract class Command
     {
 
     }
-
-    public virtual void GetKey()
-    {
-
-    }
 }

@@ -17,7 +17,7 @@ public class PlayerActions
     {
         if (!IsPlayerCrouching)
         {
-            player.Components.Rigidbody.velocity = new Vector2(player.Stats.Direction.x * player.Stats.Speed * Time.deltaTime, player.Components.Rigidbody.velocity.y);
+            player.Components.Rigidbody.velocity = new Vector2(player.Stats.Direction.x * player.Stats.RunSpeed * Time.deltaTime, player.Components.Rigidbody.velocity.y);
 
             if (player.Stats.Direction.x != 0)
             {
@@ -59,7 +59,6 @@ public class PlayerActions
 
     internal void PickUpDoubleJump()
     {
-        player.Stats.CanDoubleJump = true;
         player.Stats.PickedUpDoubleJump = true;
         SoundManager.instance.PlaySound(player.References.PickupSound);
     }

@@ -29,8 +29,6 @@ public class Player : MonoBehaviour {
     {
         actions = new PlayerActions(this);
         utilities = new PlayerUtilities(this);
-        
-        stats.Speed = stats.RunSpeed;
 
         stats.IsImmortal = false;
 
